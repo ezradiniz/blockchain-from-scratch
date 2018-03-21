@@ -1,4 +1,3 @@
-import json
 from hashlib import sha256
 from time import time
 
@@ -14,7 +13,7 @@ class Block(object):
     @staticmethod
     def genesis():
         '''Return genesis block'''
-        return Block('Genesis time', '----', 'ezra-hash', [])
+        return Block('Genesis time', '0000000000000000', '1111111111111111', 'init_data')
 
     @staticmethod
     def mine_block(last_block, data):

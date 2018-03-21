@@ -11,8 +11,8 @@ class Blockchain(object):
         return block
 
     def is_valid_chain(self, chain):
-        genesis = f'{Block.genesis()}'
-        block_init = f'{chain[0]}'
+        genesis = str(Block.genesis())
+        block_init = str(chain[0])
 
         if genesis != block_init:
             return False
@@ -24,14 +24,3 @@ class Blockchain(object):
                 return False
 
         return True
-
-    def replace_chain(self, new_chain):
-        if len(new_chain) <= len(self.chain):
-            print('Received chain is not longer than the current chain.')
-            return
-        if not self.is_valid_chain(new_chain):
-            print('Received chain is not valid.')
-            return
-
-        print('Replacing blockchain with the new chain.')
-        self.chain = new_chain
