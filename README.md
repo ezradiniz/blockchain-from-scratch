@@ -1,6 +1,6 @@
 # blockchain-from-scratch
 
-This is a Python implementation of Blockchain (inspired by the [Udemy Uourse]('https://www.udemy.com/build-blockchain/'))
+This is a Python implementation of Blockchain (inspired by the [Udemy Course](https://www.udemy.com/build-blockchain/))
 
 ### TODO
 
