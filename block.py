@@ -1,31 +1,41 @@
+import json
 from hashlib import sha256
+from time import time
 
 class Block(object):
+    ''' Block is a part from blockchain '''
 
-    def __init__(self, timestamp, lastHash, curHash, data, nonce, difficulty):
+    def __init__(self, timestamp, last_hash, cur_hash, data):
         self.timestamp = timestamp
-        self.lastHash = lastHash
-        self.curHash = curHash
+        self.last_hash = last_hash
+        self.cur_hash = cur_hash
         self.data = data
-        self.nonce = nonce
-        self.difficulty = difficulty
 
     @staticmethod
     def genesis():
         '''Return genesis block'''
-        return Block('Genesis time', '----', 'ezra-hash', [], 0, 1)
+        return Block('Genesis time', '----', 'ezra-hash', [])
 
     @staticmethod
-    def mineBlock(lastBlock, data):
+    def mine_block(last_block, data):
         ''' Mine block '''
-        pass
+        timestamp = int(round(time() * 1000))
+        last_hash = last_block.cur_hash
+        cur_hash = Block.hash(timestamp, last_hash, data)
+        return Block(timestamp, last_hash, cur_hash, data)
+
+    @staticmethod
+    def hash(timestamp, last_hash, data):
+        return sha256(f'{timestamp}{last_hash}{data}'.encode()).hexdigest()
+
+    @staticmethod
+    def block_hash(block):
+        return Block.hash(block.timestamp, block.last_hash, block.data)
 
     def __str__(self):
         return f'''
-            Timestamp: {self.timestamp}
-            Last Hash: {self.lastHash[:10]}
-            Hash: {self.curHash[:10]}
-            Difficulty: {self.difficulty}
-            Nonce: {self.nonce}
             Data: {self.data}
+            Hash: {self.cur_hash[:10]}
+            Last Hash: {self.last_hash[:10]}
+            Timestamp: {self.timestamp}
         '''
